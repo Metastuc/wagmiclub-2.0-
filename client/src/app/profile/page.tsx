@@ -87,6 +87,7 @@ const Profile = () => {
 	}, [data, error]);
 
 	console.log({ profile });
+	console.log({ USER });
 
 	// const { bio, badges, medals } = profile as UserProfileData;
 

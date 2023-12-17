@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Web3Auth from "@/hooks/useWeb3Auth";
+import { Web3Auth } from "@/hooks";
 import "@/styles/main.scss";
 
 export const metadata = {

@@ -5,7 +5,7 @@ import { DESKTOP_NAV_LINKS } from "@/assets/data";
 import { Logo, Menu } from "@/components";
 import "./index.scss";
 import { useRouter } from "next/navigation";
-import { logIn } from "@/utils/app.mjs";
+// import { logIn } from "@/utils/app.mjs";
 
 import { connectWallet } from "@/utils/auth/connectWallet";
 

@@ -10,7 +10,7 @@ interface Props {
 	children: ReactNode;
 }
 
-export const chains = [polygonMumbai, polygon];
+const chains = [polygonMumbai, polygon];
 
 const Web3Auth: FC<Props> = ({ children }) => {
 	useShutTheFuckUpAboutENS();
@@ -32,4 +32,4 @@ const Web3Auth: FC<Props> = ({ children }) => {
 	);
 };
 
-export default Web3Auth;
+export { Web3Auth };
