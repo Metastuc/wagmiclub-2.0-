@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useAccount } from "wagmi";
+
 import {
 	Actions,
 	Bio,
@@ -12,7 +14,6 @@ import { useFetch } from "@/hooks";
 import "./page.scss";
 import { X } from "@/assets/icons";
 
-import { getProfile } from "@/utils/app.mjs";
 import Link from "next/link";
 
 interface Medal {
@@ -73,7 +74,8 @@ interface UserProfileData {
 const Profile = () => {
 	const group = "profile";
 	const API = process.env.NEXT_PUBLIC_GET_PROFILE!;
-	const USER = "0xdeDf26b9280620eaa52e0811bF7991a1B6aB077E";
+	const { address } = useAccount();
+	const USER = address;
 	const URL = API + USER;
 
 	const { data, loading, error } = useFetch({ url: URL });
