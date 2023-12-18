@@ -1,37 +1,31 @@
 "use client";
 
+import axios from "axios";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
+import { ConnectKitButton } from "connectkit";
 import { DESKTOP_NAV_LINKS } from "@/assets/data";
 import { Logo, Menu } from "@/components";
 import "./index.scss";
-import { useRouter } from "next/navigation";
-// import { logIn } from "@/utils/app.mjs";
-
-import { connectWallet } from "@/utils/auth/connectWallet";
-
-import { ConnectKitButton } from "connectkit";
 
 export const PrimaryNav = () => {
 	const router = useRouter();
+	const { address, isConnected } = useAccount();
 
-	async function handleMenuItem(id: number) {
-		// function to be triggered for the login action
-		try {
-			id === 3 &&
-				// router.push((await logIn()) ? "/profile" : "/profile/edit");
-				connectWallet();
-		} catch (error) {
-			console.warn(error);
-		}
-	}
+	const baseAPIURL = process.env.NEXT_PUBLIC_API_URL;
 
-	async function connect() {
-		try {
-			await connectWallet();
-		} catch (error) {
-			console.error(error);
-		}
-	}
+	useEffect(() => {
+		isConnected &&
+			(async () => {
+				const { exists } = (
+					await axios.get(`${baseAPIURL}checkUser/${address}`)
+				).data;
+
+				// !exists && router.replace("/profile/edit");
+			})();
+	}, [isConnected]);
 
 	return (
 		<nav className="primaryNav">
@@ -53,22 +47,27 @@ export const PrimaryNav = () => {
 						} = item;
 
 						return (
-							<li
-								key={id || index}
-								onClick={() => {
-									// handleMenuItem(id);
-								}}
-							>
+							<li key={id || index}>
 								{/* Link to specific route */}
 								<Link href={to}>{title}</Link>
 							</li>
 						);
 					})}
+
 					<ConnectKitButton.Custom>
-						{({ isConnected, show, ensName, truncatedAddress }) => (
-							<li onClick={show}>
-								{/* {isConnected ? truncatedAddress : "Sign In"} */}
-								Login
+						{({ isConnected, show, truncatedAddress }) => (
+							<li
+								onClick={() => {
+									show!();
+								}}
+							>
+								{isConnected ? (
+									<span>
+										<i>icon</i> truncatedAddress
+									</span>
+								) : (
+									"Login"
+								)}
 							</li>
 						)}
 					</ConnectKitButton.Custom>

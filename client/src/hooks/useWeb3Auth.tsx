@@ -2,8 +2,8 @@
 
 import React, { FC, ReactNode } from "react";
 import { WagmiConfig, createConfig } from "wagmi";
-import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { polygon, polygonMumbai } from "viem/chains";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { useShutTheFuckUpAboutENS } from "./useShutTheFuckUpAboutENS";
 
 interface Props {
