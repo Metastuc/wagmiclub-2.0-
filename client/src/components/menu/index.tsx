@@ -1,114 +1,61 @@
 "use client";
 
-import Link from "next/link";
+import axios from "axios";
 import { useEffect } from "react";
-import { CloseMenu, Hamburger, Search } from "@/assets/icons";
-import { DESKTOP_NAV_LINKS } from "@/assets/data";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
+import { Hamburger } from "@/assets/icons";
 import { useToggle } from "@/hooks";
+import { Modal } from "@/views";
+import { MenuModal } from "..";
 import "./index.scss";
 
-import { logIn } from "@/utils/app.mjs";
-import { useRouter } from "next/navigation";
-import { ConnectKitButton } from "connectkit";
-
 export const Menu = () => {
-	const { status: menuActive, toggleStatus } = useToggle();
 	const router = useRouter();
+	const { address, isConnected } = useAccount();
+	const { status: isMenuActive, toggleStatus: setIsMenuActive } = useToggle();
+
+	const baseAPIURL = process.env.NEXT_PUBLIC_API_URL;
 
 	useEffect(() => {
 		// Toggle background vertical scroll when menu is active
-		const scroll = menuActive ? "hidden" : "visible";
+		const scroll = isMenuActive ? "hidden" : "visible";
 		document.body.style.overflowY = scroll;
-	}, [menuActive]);
+	}, [isMenuActive]);
 
-	/**
-	 * Handle menu item click event.
-	 */
-	async function handleMenuItem(id: number) {
-		menuActive && toggleStatus();
-		// function to be triggered for the login action
-		try {
-			id === 3 &&
-				router.push((await logIn()) ? "/profile" : "/profile/edit");
-		} catch (error) {
-			console.warn(error);
-		}
+	async function handleLogin({ show }: { show: (() => void) | undefined }) {
+		show!();
+		// isMenuActive && setIsMenuActive();
 	}
+
+	useEffect(() => {
+		isConnected &&
+			(async () => {
+				const { exists } = (
+					await axios.get(`${baseAPIURL}checkUser/${address}`)
+				).data;
+
+				!exists && router.replace("/profile/edit");
+			})();
+	}, [isConnected]);
 
 	return (
 		<section className="menu">
 			<div className="menu-wrapper">
-				{/* Hamburger menu button */}
-				<button onClick={toggleStatus}>
+				<button onClick={setIsMenuActive}>
 					<Hamburger />
 				</button>
 
-				{/* Active menu background */}
-				{menuActive && (
-					<section className="active-menu-background">
-						<div className="menu-content">
-							<div className="content-wrapper">
-								{/* Close menu button */}
-								<div className="close-menu">
-									<button onClick={toggleStatus}>
-										<CloseMenu />
-									</button>
-								</div>
-
-								{/* Navigation links */}
-								<ul className="navigation">
-									{DESKTOP_NAV_LINKS.map((item) => {
-										const {
-											id,
-											value: { title, to },
-										} = item;
-
-										return (
-											<li
-												key={id}
-												onClick={() => {
-													handleMenuItem(id);
-												}}
-											>
-												<Link href={to}>{title}</Link>
-											</li>
-										);
-									})}
-
-									<ConnectKitButton.Custom>
-										{({
-											isConnected,
-											show,
-											ensName,
-											truncatedAddress,
-										}) => (
-											<li
-												onClick={() => {
-													show!();
-													menuActive &&
-														toggleStatus();
-												}}
-											>
-												Login
-											</li>
-										)}
-									</ConnectKitButton.Custom>
-								</ul>
-
-								{/* Search input */}
-								<div className="search">
-									<input
-										type="text"
-										placeholder="search"
-									/>
-									<span>
-										<Search />
-									</span>
-								</div>
-							</div>
-						</div>
-					</section>
-				)}
+				<Modal
+					isOpen={isMenuActive}
+					onClose={setIsMenuActive}
+				>
+					<MenuModal
+						onClose={() => {
+							setIsMenuActive();
+						}}
+					/>
+				</Modal>
 			</div>
 		</section>
 	);

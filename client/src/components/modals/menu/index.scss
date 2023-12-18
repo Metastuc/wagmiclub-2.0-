@@ -1,0 +1,43 @@
+@use "@/styles/"as *;
+
+.content__wrapper {
+    padding: .75rem 1rem 1rem 1.5rem;
+}
+
+.navigation {
+    @include flex($d:column, $a:flex-start);
+    gap: .875rem;
+
+    li {
+        font-family: map-get($map: $ff, $key: clash);
+        font-weight: map-get($map: $fw, $key: mid);
+        font-size: .875rem;
+
+        a {
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.search {
+    width: 100%;
+    margin-top: 1.25rem;
+    border-radius: .625rem;
+    background-color: var(--white);
+    @include flex($j:space-between);
+    padding: .25rem;
+    overflow: hidden;
+
+    input {
+        font-family: map-get($map: $ff, $key: clash);
+        font-size: 1rem;
+        padding-inline: .5rem;
+        font-weight: map-get($map: $fw, $key: mid);
+    }
+
+    span {
+        @include flex;
+    }
+}

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
-
+import Link from "next/link";
 import {
 	Actions,
 	Bio,
@@ -11,10 +11,8 @@ import {
 	TrustScores,
 } from "@/components";
 import { useFetch } from "@/hooks";
-import "./page.scss";
 import { X } from "@/assets/icons";
-
-import Link from "next/link";
+import "./page.scss";
 
 interface Medal {
 	id: number;
@@ -87,9 +85,6 @@ const Profile = () => {
 	}, [data, error]);
 
 	console.log({ profile });
-	console.log({ USER });
-
-	// const { bio, badges, medals } = profile as UserProfileData;
 
 	return (
 		<section className={`${group}`}>

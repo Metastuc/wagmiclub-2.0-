@@ -1,23 +1,74 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useDisconnect } from "wagmi";
 import Link from "next/link";
 import "./index.scss";
 
 const Profile = ({ onClose }: { onClose: () => void }) => {
 	const group = "profileModal";
 
-	const links = [
-		{
-			name: "Profile",
-			href: "/profile",
-		},
-		{
-			name: "Edit profile",
-			href: "/profile/edit",
-		},
-		{
-			name: "Sign out",
-			href: "/",
-		},
-	];
+	const pathname = usePathname();
+	const { disconnect } = useDisconnect();
+
+	let links: { name: string; href: string }[] = [];
+
+	switch (pathname) {
+		case `/profile`:
+			links = [
+				{
+					name: "Explore",
+					href: "/explore",
+				},
+				{
+					name: "Edit profile",
+					href: "/profile/edit",
+				},
+				{
+					name: "Sign out",
+					href: "/",
+				},
+			];
+			break;
+
+		case `/create`:
+			links = [
+				{
+					name: "Profile",
+					href: "/profile",
+				},
+				{
+					name: "Explore",
+					href: "/explore",
+				},
+				{
+					name: "Sign out",
+					href: "/",
+				},
+			];
+			break;
+
+		default:
+			links = [
+				{
+					name: "Profile",
+					href: "/profile",
+				},
+				{
+					name: "Edit profile",
+					href: "/profile/edit",
+				},
+				{
+					name: "Sign out",
+					href: "/",
+				},
+			];
+			break;
+	}
+
+	function handleClick(index: number) {
+		index === 2 && disconnect();
+	}
 
 	function RenderList() {
 		return (
@@ -31,7 +82,12 @@ const Profile = ({ onClose }: { onClose: () => void }) => {
 							className={`${group}__item`}
 							onClick={onClose}
 						>
-							<Link href={href}>{name}</Link>
+							<Link
+								href={href}
+								onClick={() => handleClick(index)}
+							>
+								{name}
+							</Link>
 						</li>
 					);
 				})}

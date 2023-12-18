@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Logo, ProfileModal, SearchModal } from "@/components";
 import { Search_White } from "@/assets/icons";
@@ -16,6 +17,13 @@ export const SecondaryNav = () => {
 
 	const { status: isSearchModalOpen, toggleStatus: setIsSearchModalOpen } =
 		useToggle();
+
+	useEffect(() => {
+		// Toggle background vertical scroll when menu is active
+		const scroll =
+			isProfileModalOpen || isSearchModalOpen ? "hidden" : "visible";
+		document.body.style.overflowY = scroll;
+	}, [isProfileModalOpen, isSearchModalOpen]);
 
 	return (
 		<nav className="secondaryNav">
