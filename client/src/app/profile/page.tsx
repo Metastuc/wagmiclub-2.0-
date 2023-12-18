@@ -71,10 +71,12 @@ interface UserProfileData {
 
 const Profile = () => {
 	const group = "profile";
-	const API = process.env.NEXT_PUBLIC_GET_PROFILE!;
+
 	const { address } = useAccount();
-	const USER = address;
-	const URL = API + USER;
+
+	const baseApiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+	const URL = `${baseApiUrl}getUserProfileAddress/${address}`;
 
 	const { data, loading, error } = useFetch({ url: URL });
 	const [profile, setProfile] = useState<UserProfileData | null>(null);
