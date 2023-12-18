@@ -2,6 +2,7 @@ export * from "./club";
 export * from "./hero";
 export * from "./vera";
 export * from "./footer";
+export * from "./profile";
 export * from "./questers";
 export * from "./powered_by";
 export * from "./reputation";

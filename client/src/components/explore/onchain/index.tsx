@@ -36,7 +36,7 @@ export const OnChain = ({ group }: { group: string }) => {
 	return loading ? (
 		<p>Loading...</p>
 	) : error ? (
-		<p>Error loading Medals. please check your internet connection</p> // Your actual content here
+		<p>Error loading Medals. please check your internet connection</p>
 	) : (
 		<section className={`${group}`}>
 			<div className={`${group}__wrapper`}>

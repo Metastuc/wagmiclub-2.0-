@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { ConnectKitButton } from "connectkit";
 import { DESKTOP_NAV_LINKS } from "@/assets/data";
-import { Search } from "@/assets/icons";
+import { Profile, Search } from "@/assets/icons";
 import "./index.scss";
 
 const MenuModal = ({ onClose }: { onClose: () => void }) => {
@@ -34,10 +34,14 @@ const MenuModal = ({ onClose }: { onClose: () => void }) => {
 								show!();
 								onClose();
 							}}
+							id="login"
 						>
 							{isConnected ? (
 								<span>
-									<i>icon</i> truncatedAddress
+									<i>
+										<Profile />
+									</i>
+									{truncatedAddress}
 								</span>
 							) : (
 								"Login"
