@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@covalenthq/client-sdk": "^0.7.0",
     "@erc725/erc725.js": "^0.21.2",
     "@lukso/lsp-factory.js": "^3.2.1",
     "@moralisweb3/common-evm-utils": "^2.23.1",

@@ -200,10 +200,9 @@ export const uploadImage = async (image) => {
 		formData.append("file", image);
 
 		// call upload function to API with details
-		const endPoint = "/uploadImage";
+		const endPoint = "uploadImage";
 
-		// const uploadEndpoint = baseAPIURL + endPoint;
-		const uploadEndpoint = "http://localhost:3300" + endPoint;
+		const uploadEndpoint = baseAPIURL + endPoint;
 
 		const response = await fetch(uploadEndpoint, {
 			method: "POST",
@@ -365,10 +364,9 @@ export const particpate = async (id) => {
 		body.requirement = getNumber(createBody.metrics);
 
 		// call mint function to API with details
-		const endPoint = `/particapate/${id}`;
+		const endPoint = `particapate/${id}`;
 
-		// const participateEndpoint = baseAPIURL + endPoint;
-		const participateEndpoint = "http://localhost:3300" + endPoint;
+		const participateEndpoint = baseAPIURL + endPoint;
 
 		const response = await fetch(participateEndpoint, {
 			method: "POST",
