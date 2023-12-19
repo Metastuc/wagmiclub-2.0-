@@ -361,10 +361,9 @@ export const particpate = async (id) => {
 		await connectWallet();
 		const address = await getUserAddress();
 
-		body.requirement = getNumber(createBody.metrics);
-
 		// call mint function to API with details
-		const endPoint = `particapate/${id}`;
+		const endPoint = `participate/${id}`;
+		console.log(id);
 
 		const participateEndpoint = baseAPIURL + endPoint;
 

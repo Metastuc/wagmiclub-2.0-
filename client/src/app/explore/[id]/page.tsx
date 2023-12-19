@@ -1,5 +1,6 @@
 import { FC } from "react";
 import "./page.scss";
+import { particpate } from "@/utils/app.mjs";
 
 interface props {
 	id?: number;
@@ -39,6 +40,13 @@ export const MedalDetails: FC<props> = ({
 	const [startDate, endDate] = [new Date(start), new Date(end)];
 	const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
 	const daysDiff = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+	const handleParticipate = async () => {
+		try {
+			await particpate(id);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	return (
 		<section className={group}>
@@ -99,7 +107,7 @@ export const MedalDetails: FC<props> = ({
 								>
 									<img
 										src={participant}
-										alt=""
+										alt="img"
 									/>
 								</span>
 							))}
@@ -107,7 +115,9 @@ export const MedalDetails: FC<props> = ({
 					</div>
 
 					<div className={`${group}__row`}>
-						<button>{claimed ? "Minted" : "Participate"}</button>
+					<button onClick={async () => !claimed && await handleParticipate()}>
+  						{claimed ? 'Minted' : 'Participate'}
+					</button>
 					</div>
 				</div>
 			</div>
