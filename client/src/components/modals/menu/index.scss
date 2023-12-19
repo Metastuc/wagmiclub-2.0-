@@ -19,6 +19,16 @@
             }
         }
     }
+
+    #login>span {
+        @include flex;
+        gap: .25rem;
+
+        i {
+            @include equal(1rem);
+            @include flex;
+        }
+    }
 }
 
 .search {
@@ -26,15 +36,21 @@
     margin-top: 1.25rem;
     border-radius: .625rem;
     background-color: var(--white);
-    @include flex($j:space-between);
+    @include flex;
     padding: .25rem;
     overflow: hidden;
 
     input {
         font-family: map-get($map: $ff, $key: clash);
         font-size: 1rem;
-        padding-inline: .5rem;
         font-weight: map-get($map: $fw, $key: mid);
+        width: 3.75rem;
+        transition: .25s;
+
+        &:focus {
+            padding-inline: .5rem;
+            flex: 1;
+        }
     }
 
     span {

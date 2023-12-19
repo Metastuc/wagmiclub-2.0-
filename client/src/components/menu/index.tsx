@@ -23,11 +23,6 @@ export const Menu = () => {
 		document.body.style.overflowY = scroll;
 	}, [isMenuActive]);
 
-	async function handleLogin({ show }: { show: (() => void) | undefined }) {
-		show!();
-		// isMenuActive && setIsMenuActive();
-	}
-
 	useEffect(() => {
 		isConnected &&
 			(async () => {
@@ -35,7 +30,7 @@ export const Menu = () => {
 					await axios.get(`${baseAPIURL}checkUser/${address}`)
 				).data;
 
-				!exists && router.replace("/profile/edit");
+				// !exists && router.replace("/profile/edit");
 			})();
 	}, [isConnected]);
 

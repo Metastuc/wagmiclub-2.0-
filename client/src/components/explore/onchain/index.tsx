@@ -26,7 +26,9 @@ export const RenderOrgMedals = function ({ group }: { group: string }) {
 	);
 };
 export const OnChain = ({ group }: { group: string }) => {
-	const API = process.env.NEXT_PUBLIC_ALL_MEDALS!;
+	const baseApiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+	const API = `${baseApiUrl}getAllMedals`;
 
 	const { data, loading, error } = useFetch({ url: API });
 	const MEDALS = data as string[];
@@ -34,7 +36,7 @@ export const OnChain = ({ group }: { group: string }) => {
 	return loading ? (
 		<p>Loading...</p>
 	) : error ? (
-		<p>Error loading Medals. please check your internet connection</p> // Your actual content here
+		<p>Error loading Medals. please check your internet connection</p>
 	) : (
 		<section className={`${group}`}>
 			<div className={`${group}__wrapper`}>

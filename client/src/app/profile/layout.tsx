@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { SecondaryNav } from "@/components";
-import { Web3Auth } from "@/hooks";
+import { BreakpointCheck, Web3Auth } from "@/hooks";
 import "@/styles/main.scss";
 
 export const metadata = {
@@ -12,8 +12,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 		<html lang="en">
 			<body className="container">
 				<Web3Auth>
-					<SecondaryNav />
-					<section>{children}</section>
+					<BreakpointCheck>
+						<SecondaryNav />
+						<section>{children}</section>
+					</BreakpointCheck>
 				</Web3Auth>
 			</body>
 		</html>
