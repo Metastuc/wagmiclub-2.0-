@@ -8,7 +8,73 @@ import { useRouter } from "next/navigation";
 import { ConnectKitButton } from "connectkit";
 import { DESKTOP_NAV_LINKS } from "@/assets/data";
 import { Logo, Menu } from "@/components";
+import { Profile } from "@/assets/icons";
 import "./index.scss";
+
+function RenderNavLinks() {
+	return (
+		<>
+			<ul className="primaryNav__desktop">
+				{/* Mapping through desktop navigation links */}
+				{DESKTOP_NAV_LINKS.map((item, index) => {
+					const {
+						id,
+						value: { title, to },
+					} = item;
+					return (
+						<ListItem
+							key={id || index}
+							title={title}
+							to={to}
+						/>
+					);
+				})}
+
+				{/* Login Button */}
+				<RenderLoginButton />
+			</ul>
+		</>
+	);
+}
+
+function ListItem({ title, to }: { title: string; to: string }) {
+	return (
+		<>
+			<li>
+				{/* Link to specific route */}
+				<Link href={to}>{title}</Link>
+			</li>
+		</>
+	);
+}
+
+function RenderLoginButton() {
+	return (
+		<>
+			<ConnectKitButton.Custom>
+				{({ isConnected, show, truncatedAddress }) => (
+					<li
+						onClick={() => {
+							show!();
+						}}
+						id="login"
+					>
+						{isConnected ? (
+							<span>
+								<i>
+									<Profile />
+								</i>
+								{truncatedAddress}
+							</span>
+						) : (
+							"Login"
+						)}
+					</li>
+				)}
+			</ConnectKitButton.Custom>
+		</>
+	);
+}
 
 export const PrimaryNav = () => {
 	const router = useRouter();
@@ -29,7 +95,7 @@ export const PrimaryNav = () => {
 
 	return (
 		<nav className="primaryNav">
-			{/* Wrapper for the logo, menu, and desktop navigation */}
+			{/* Wrapper for the logo, mobile menu, and desktop navigation */}
 			<div className="primaryNav__wrapper">
 				{/* Application Logo */}
 				<Logo />
@@ -37,41 +103,8 @@ export const PrimaryNav = () => {
 				{/* Navigation Menu (Mobile) */}
 				<Menu />
 
-				{/* Desktop Navigation Menu */}
-				<ul className="primaryNav__desktop">
-					{/* Mapping through desktop navigation links */}
-					{DESKTOP_NAV_LINKS.map((item, index) => {
-						const {
-							id,
-							value: { title, to },
-						} = item;
-
-						return (
-							<li key={id || index}>
-								{/* Link to specific route */}
-								<Link href={to}>{title}</Link>
-							</li>
-						);
-					})}
-
-					<ConnectKitButton.Custom>
-						{({ isConnected, show, truncatedAddress }) => (
-							<li
-								onClick={() => {
-									show!();
-								}}
-							>
-								{isConnected ? (
-									<span>
-										<i>icon</i> truncatedAddress
-									</span>
-								) : (
-									"Login"
-								)}
-							</li>
-						)}
-					</ConnectKitButton.Custom>
-				</ul>
+				{/* Navigation Menu (Desktop) */}
+				<RenderNavLinks />
 			</div>
 		</nav>
 	);
