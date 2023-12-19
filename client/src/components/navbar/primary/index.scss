@@ -82,6 +82,17 @@
             cursor: pointer;
         }
 
+
+        #login>span {
+            @include flex;
+            gap: .25rem;
+
+            i {
+                @include equal(1rem);
+                @include flex;
+            }
+        }
+
         /**
          * Hide desktop navigation on smaller screens.
          */

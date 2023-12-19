@@ -66,8 +66,8 @@ const Profile = ({ onClose }: { onClose: () => void }) => {
 			break;
 	}
 
-	function handleClick(index: number) {
-		index === 2 && disconnect();
+	async function handleClick(index: number) {
+		index === 2 && (await disconnect());
 	}
 
 	function RenderList() {
