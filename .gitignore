@@ -18,3 +18,4 @@ contracts/contracts/interfaces/IVRC725.sol
 contracts/contracts/interfaces/IERC1271.sol
 contracts/contracts/interfaces/IERC721Receiver.sol
 contracts/contracts/interfaces/IERC721Enumerable.sol
+contracts/contracts/VRC725.sol
