@@ -427,3 +427,28 @@ export const getProfile = async () => {
 export const returnProfile = () => {
 	return { userProfile };
 };
+
+export const mintEligible = async (tokenId) => {
+	try {
+		const endPoint = `getEligibleArray/${tokenId}`;
+
+		const getEkigible = baseAPIURL + endPoint;
+
+		const response = await fetch(getEkigible, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		if (!response.ok) {
+			throw new Error("Server Error");
+		}
+
+		const data = await response.json();
+		console.log(data);
+		return data.eligible;
+	} catch (error) {
+		
+	}
+};

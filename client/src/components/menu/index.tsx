@@ -30,7 +30,7 @@ export const Menu = () => {
 					await axios.get(`${baseAPIURL}checkUser/${address}`)
 				).data;
 
-				// !exists && router.replace("/profile/edit");
+				!exists && router.replace("/profile/edit");
 			})();
 	}, [isConnected]);
 

@@ -1,0 +1,3 @@
+contracts/contracts/Lock.sol
+contracts/test/Lock.js
+contracts/scripts/deploy.js
