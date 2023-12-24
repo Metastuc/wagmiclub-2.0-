@@ -3,17 +3,18 @@ pragma solidity >=0.6.2;
 
 import "./extensions/VRC725Enumerable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./libraries/Strings.sol";
 
-contract Badge is VRC725Enumerable, Ownable {
+contract Badge is VRC725Enumerable {
+    using Strings for uint256;
     using Counters for Counters.Counter; // OpenZepplin Counter
     Counters.Counter private _badgeCount; // Counter for badges minted
 
-    string public _baseURI;
-    address public
+    string public baseURI_;
 
     constructor(string memory name, string memory symbol, address issuer, string memory uri)  {
         __VRC725_init(name, symbol, issuer);
-        _baseURI = uri;
+        baseURI_ = uri;
     }
 
     function mint(address owner) external {
@@ -29,10 +30,10 @@ contract Badge is VRC725Enumerable, Ownable {
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
-        return _baseURI;
+        return baseURI_;
     }
 
     function _updateURI(string memory uri) external onlyOwner {
-        return _baseURI;
+        baseURI_ = uri;
     }
 }
