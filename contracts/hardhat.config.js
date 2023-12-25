@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
+require('dotenv').config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -12,5 +13,13 @@ module.exports = {
         settings: {},
       },
     ],
+  },
+  networks: {
+    hardhat: {
+    },
+    viction: {
+      url: "https://rpc-testnet.viction.xyz",
+      accounts: [process.env.PRIVATE_KEY]
+    }
   }
 };

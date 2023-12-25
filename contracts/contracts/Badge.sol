@@ -12,8 +12,8 @@ contract Badge is VRC725Enumerable {
 
     string public baseURI_;
 
-    constructor(string memory name, string memory symbol, address issuer, string memory uri)  {
-        __VRC725_init(name, symbol, issuer);
+    constructor(string memory uri) {
+        __VRC725_init("Wagmi Club", "WGM", msg.sender);
         baseURI_ = uri;
     }
 
