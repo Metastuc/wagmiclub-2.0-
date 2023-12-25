@@ -356,41 +356,45 @@ export const createMedal = async (createBody) => {
 };
 
 // participate
-export const particpate = async (id) => {
+export const medalAction = async (id, claimed, isCreator, isParticipant) => {
 	try {
 		await connectWallet();
 		const address = await getUserAddress();
 
-		// call mint function to API with details
-		const endPoint = `participate/${id}`;
-		console.log(id);
-
-		const participateEndpoint = baseAPIURL + endPoint;
-
-		const response = await fetch(participateEndpoint, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ address: address }),
-		});
-
-		if (!response.ok) {
-			throw new Error("Server Error");
+		if (claimed) {
+			console.log(claimed);
 		}
 
-		const data = await response.json();
+		if (isCreator) {
+			await mintEligible();
+		}
 
-		const contract = new ethers.Contract(
-			medalContractAddress,
-			medalABI,
-			signer,
-		);
-		const TX = await contract.registerInterest(id);
-		const receipt = await TX.wait();
-		console.log("registered", receipt);
+		if (isParticipant) {
+			console.log(isParticipant);
+		} else {
+			const endPoint = `participate/${id}`;
+			console.log(id);
+	
+			const participateEndpoint = baseAPIURL + endPoint;
+	
+			const response = await fetch(participateEndpoint, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ address: address }),
+			});
+	
+			if (!response.ok) {
+				throw new Error("Server Error");
+			}
+	
+			const data = await response.json();
+	
+			console.log("registered Successfully", data.response, receipt);
+	
+		}
 
-		console.log("registered Successfully", data.response, receipt);
 	} catch (error) {
 		console.log(error);
 	}
@@ -432,9 +436,9 @@ export const mintEligible = async (tokenId) => {
 	try {
 		const endPoint = `getEligibleArray/${tokenId}`;
 
-		const getEkigible = baseAPIURL + endPoint;
+		const getEligible = baseAPIURL + endPoint;
 
-		const response = await fetch(getEkigible, {
+		const response = await fetch(getEligible, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -446,9 +450,31 @@ export const mintEligible = async (tokenId) => {
 		}
 
 		const data = await response.json();
+		const eligible = data.eligible;
+		if (eligible.length < 1) {
+			console.log(eligible);
+		} else {
+			// mint to eligible
+			console.log("to be minted");
+		}
 		console.log(data);
-		return data.eligible;
 	} catch (error) {
 		
 	}
 };
+
+export const getMessage = (claimed, isCreator, isParticipant) => {
+	if (claimed) {
+		return "Minted";
+	}
+
+	if (isCreator) {
+		return "Mint to Eligible";
+	}
+
+	if (isParticipant) {
+		return "Particpated";
+	} else {
+		return "Participate";
+	}
+}

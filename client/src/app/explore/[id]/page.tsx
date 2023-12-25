@@ -1,6 +1,7 @@
 import { FC } from "react";
 import "./page.scss";
-import { particpate } from "@/utils/app.mjs";
+import { medalAction, getMessage } from "@/utils/app.mjs";
+
 
 interface props {
 	id?: number;
@@ -21,6 +22,8 @@ interface props {
 	};
 	participants: string[];
 	claimed: boolean;
+	isCreator: boolean;
+	isParticipant: boolean;
 }
 
 export const MedalDetails: FC<props> = ({
@@ -33,6 +36,8 @@ export const MedalDetails: FC<props> = ({
 	metrics,
 	participants,
 	claimed,
+	isCreator,
+	isParticipant,
 	time: { start, end },
 	quantity: { total, remaining },
 }) => {
@@ -40,11 +45,21 @@ export const MedalDetails: FC<props> = ({
 	const [startDate, endDate] = [new Date(start), new Date(end)];
 	const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
 	const daysDiff = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-	const handleParticipate = async () => {
+	const handleButton = async () => {
 		try {
-			await particpate(id);
+			// write function to handle cases
+			await medalAction(id, claimed, isCreator, isParticipant);
 		} catch (error) {
 			console.log(error);
+		}
+	}
+
+	const getButtonMessage = () => {
+		try {
+			const message = getMessage(claimed, isCreator, isParticipant);
+			return message;
+		} catch (error) {
+			console.error(error);
 		}
 	}
 
@@ -115,8 +130,8 @@ export const MedalDetails: FC<props> = ({
 					</div>
 
 					<div className={`${group}__row`}>
-					<button onClick={async () => !claimed && await handleParticipate()}>
-  						{claimed ? 'Minted' : 'Participate'}
+					<button onClick={async () => await handleButton()}>
+  						{getButtonMessage()}
 					</button>
 					</div>
 				</div>
