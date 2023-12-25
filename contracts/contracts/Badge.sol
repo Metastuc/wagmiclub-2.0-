@@ -36,4 +36,41 @@ contract Badge is VRC725Enumerable {
     function _updateURI(string memory uri) external onlyOwner {
         baseURI_ = uri;
     }
+
+    function permit(address spender, uint256 tokenId, uint256 deadline, bytes memory signature) external virtual override {
+        revert("Can not permit for a soulbound token");
+    }
+
+    function permitForAll(address owner, address spender, uint256 deadline, bytes memory signature) external virtual override {
+        revert("Can not permit for a soulbound token");
+    }
+
+    function approve(address to, uint256 tokenId) public override(IERC721, VRC725) {
+       revert("Can not approve for a soulbound token");
+    }
+
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory data
+    ) public virtual override(IERC721, VRC725) {
+        revert("Can not transfer a soulbound token");
+    }
+
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override(IERC721, VRC725) {
+        revert("Can not transfer a soulbound token");
+    }
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override(IERC721, VRC725) {
+        revert("Can not transfer a soulbound token");
+    }
 }
