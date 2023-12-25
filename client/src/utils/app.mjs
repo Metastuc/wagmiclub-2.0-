@@ -5,13 +5,13 @@ var userProfile;
 
 const baseAPIURL = "https://wagmi-backend.up.railway.app/";
 
-const badgeContractAddress = "0xCfD0BC91213D1351514f0436E2FEd65850DFBc59";
+const badgeContractAddress = "0x9Fc3168ee0Cf90aaBF485BF24c337da9922bB4a3";
 const badgeABI = [
 	{
 		inputs: [
 			{
 				internalType: "address",
-				name: "to",
+				name: "owner",
 				type: "address",
 			},
 		],
@@ -24,32 +24,31 @@ const badgeABI = [
 
 const medalContractAddress = "0x5Da8DFd3c344Dd960A8956973591d21cC2209e33";
 const medalABI = [
-	{
-		inputs: [
-			{
-				internalType: "uint256",
-				name: "_deadline",
-				type: "uint256",
-			},
+    {
+		"inputs": [],
+		"name": "createMedal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	  },
+	  {
+		"inputs": [
+		  {
+			"internalType": "address[]",
+			"name": "receivers",
+			"type": "address[]"
+		  },
+		  {
+			"internalType": "uint256",
+			"name": "id",
+			"type": "uint256"
+		  }
 		],
-		name: "createMedal",
-		outputs: [],
-		stateMutability: "nonpayable",
-		type: "function",
-	},
-	{
-		inputs: [
-			{
-				internalType: "uint256",
-				name: "_tokenId",
-				type: "uint256",
-			},
-		],
-		name: "registerInterest",
-		outputs: [],
-		stateMutability: "nonpayable",
-		type: "function",
-	},
+		"name": "batchMint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	  },
 ];
 
 export const connectWallet = async () => {
@@ -343,9 +342,8 @@ export const createMedal = async (createBody) => {
 			medalABI,
 			signer,
 		);
-		const blockNumber = await provider.getBlockNumber();
-		const deadline = blockNumber + 66461;
-		const TX = await contract.createMedal(deadline);
+
+		const TX = await contract.createMedal();
 		const receipt = await TX.wait();
 		console.log("created", receipt);
 
@@ -455,7 +453,10 @@ export const mintEligible = async (tokenId) => {
 			console.log(eligible);
 		} else {
 			// mint to eligible
-			console.log("to be minted");
+			await connectWallet();
+			const TX = await contract.batchMint(eligible, tokenId);
+			const receipt = await TX.wait();
+			console.log("created", receipt);
 		}
 		console.log(data);
 	} catch (error) {
