@@ -22,7 +22,7 @@ const badgeABI = [
 	},
 ];
 
-const medalContractAddress = "0x5Da8DFd3c344Dd960A8956973591d21cC2209e33";
+const medalContractAddress = "0xe18A8E1072e932841573d5716b69F9121BE8E69C";
 const medalABI = [
     {
 		"inputs": [],
