@@ -55,64 +55,18 @@ export const connectWallet = async () => {
 	try {
 		if (window.ethereum) {
 			provider = new ethers.BrowserProvider(window.ethereum);
-			const currentNetwork = await provider.getNetwork();
-			const _currentNetworkId = currentNetwork.chainId;
-			const currentNetworkId = Number(_currentNetworkId);
-			if (currentNetworkId === 0x13881) {
-				// checking if the network is available on the wallet
-				await provider.send("eth_requestAccounts", []);
-				signer = await provider.getSigner();
-			} else {
-				const switchMumbai = {
-					chainId: "0x13881",
-				};
-				try {
-					await ethereum.request({
-						method: "wallet_switchEthereumChain",
-						params: [{ chainId: "0x13881" }],
-					});
-					await provider.send("eth_requestAccounts", []);
-					signer = await provider.getSigner();
-				} catch (switchError) {
-					if (switchError.code === 4902) {
-						try {
-							await ethereum.request({
-								method: "wallet_addEthereumChain",
-								params: [
-									{
-										chainId: "0x13881",
-										chainName: "Mumbai testnet",
-										rpcUrls: [
-											"https://rpc-mumbai.maticvigil.com/",
-										],
-									},
-								],
-							});
-							await ethereum.request({
-								method: "wallet_switchEthereumChain",
-								params: [{ chainId: "0x13881" }],
-							});
-							await provider.send("eth_requestAccounts", []);
-							signer = await provider.getSigner();
-						} catch (error) {
-							console.log(error);
-						}
-					} else {
-						console.log(switchError);
-					}
-				}
-				await window.ethereum.request({
-					method: "wallet_switchEthereumChain",
-					params: [{ chainId: "0x13881" }],
-				});
+			
+			// checking if the network is available on the wallet
+			await provider.send("eth_requestAccounts", []);
+			signer = await provider.getSigner();
 			}
-		} else {
-			return "No wallet installed";
-		}
-	} catch (error) {
-		console.error(error);
+			else {
+				return "No wallet installed";
+			}
+			} catch (error) {
+				console.error(error);
+			}
 	}
-};
 
 export const getUserAddress = async () => {
 	const address = await signer.getAddress();
@@ -389,7 +343,7 @@ export const medalAction = async (id, claimed, isCreator, isParticipant) => {
 	
 			const data = await response.json();
 	
-			console.log("registered Successfully", data.response, receipt);
+			console.log("registered Successfully", data.response);
 	
 		}
 
