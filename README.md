@@ -8,8 +8,7 @@
 -   [Technologies Used](#technologies-used)
     -   [Smart Contract](#solidity-smart-contracts)
     -   [Backend](#backend)
-    -   [Chainlink](#Chainlink)
-    -   [Covalent API](#Covalent API)
+    -   [Covalent API](#Covalent-API)
 #
 
 > ## Technologies Used
@@ -43,6 +42,6 @@
 
     -   <b style="color: orange">Node.js was the framework used for the backend</b>, we used the backend to call the Covalent Unified API and to feed in the eligible addresses for medals to be minted.The backend was also used to handle storage of user information along with the firestore database. Public endpoints can be accessed [here](wagmi-backend.up.railway.app). The code for the backend can be found [here] (https://github.com/Metastuc/wagmiclub-2.0-/blob/main/server/index.js)
     
--   ### **Covalent API**
+-   ### **Covalent-API**
 
     -   The Covalent API was used to fetch users onchain metrics like number of NFTs an account has and how much tokens an address has been transferred to an account example usage can be found[here](https://github.com/Metastuc/wagmiclub-2.0-/blob/main/server/index.js) and the endpoint that most utilized this is the getEligible and getEligibleArray endpoints.
