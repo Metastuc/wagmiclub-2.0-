@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { Details, Socials } from "@/components";
 import { EDIT_SCHEMA } from "@/assets/data";
 import { signUp } from "@/utils/app.mjs";
-
+import { useAccount } from "wagmi";
 
 import "./index.scss";
 
@@ -46,8 +46,8 @@ export const FormField = ({ activeTab }: { activeTab: string }) => {
 	} = useFormik({
 		validationSchema: EDIT_SCHEMA, // Form validation schema
 		initialValues, // Initial form values
-		onSubmit: async(values) => {
-			console.log("Formik data:", values);
+		onSubmit: async (values) => {
+			// console.log("Formik data:", values);
 			// Handle form submission logic here (e.g., API call)
 			try {
 				await signUp(values);
@@ -56,6 +56,10 @@ export const FormField = ({ activeTab }: { activeTab: string }) => {
 			}
 		},
 	});
+
+	const { address, isConnected } = useAccount();
+
+	console.log({ address, isConnected });
 
 	useEffect(() => {
 		setFieldValue("account", activeTab);

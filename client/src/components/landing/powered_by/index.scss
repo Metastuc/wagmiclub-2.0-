@@ -145,6 +145,40 @@
                 height: 2rem;
                 padding-right: 1rem;
             }
+
+            &:last-of-type {
+                @include flex;
+
+                i {
+                    @include equal(3.5rem);
+
+                    &:first-of-type {
+                        @include flex;
+
+                        @include bp-max($ss-mm) {
+                            @include equal(2rem);
+                        }
+                    }
+
+                    &:last-of-type {
+                        flex: 1;
+                        @include flex;
+                        // background-color: #000;
+                        position: relative;
+
+                        svg {
+                            position: absolute;
+                            scale: 1;
+                            left: 0;
+
+                            @include bp-max($ss-mm) {
+                                left: -1.75rem;
+                                scale: .5;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
