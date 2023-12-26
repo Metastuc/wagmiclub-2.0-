@@ -2,14 +2,29 @@
 
 > ## Table of Contents
 
--   [Project Details](#project-description)
--   [Problem Statement](#problem-statement)
--   [Solution](#solution)
+-   [Problem Statement](#Problem-statement)
+-   [Solution](#Solution)
 -   [Technologies Used](#technologies-used)
     -   [Smart Contract](#solidity-smart-contracts)
     -   [Backend](#backend)
     -   [Covalent API](#Covalent-API)
 #
+
+> ## Problem-statement
+
+Existing decentralized identity solutions lack a dedicated platform for professionals to network 
+and build their reputation in a secure and transparent manner. This creates a need for a web3 
+LinkedIn-like dApp that combines the benefits of blockchain technology with professional networking, 
+offering enhanced privacy, control, and trust.
+
+> ## Solution
+
+A decentralized application (dApp) that combines the best features 
+of LinkedIn and blockchain technology. It provides professionals with a secure and 
+transparent platform to network, build a verifiable reputation.
+Professionals need a system to independently showcase their qualifications, experience, genuine
+connections, proof of previous work, transparent credential verification order than traditional networking  
+platforms that lack transparency and trust with limited control over personal data.
 
 > ## Technologies Used
 
