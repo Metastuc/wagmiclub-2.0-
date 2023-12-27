@@ -22,6 +22,8 @@ interface FormValues {
 }
 
 export const FormField = ({ activeTab }: { activeTab: string }) => {
+	const { address, isConnected } = useAccount();
+
 	const initialValues = {
 		account: activeTab,
 		bio: "",
@@ -47,17 +49,13 @@ export const FormField = ({ activeTab }: { activeTab: string }) => {
 		validationSchema: EDIT_SCHEMA, // Form validation schema
 		initialValues, // Initial form values
 		onSubmit: async (values) => {
-			// console.log("Formik data:", values);
-			// Handle form submission logic here (e.g., API call)
 			try {
-				await signUp(values);
+				await signUp(values, address);
 			} catch (error) {
 				console.log(error);
 			}
 		},
 	});
-
-	const { address, isConnected } = useAccount();
 
 	console.log({ address, isConnected });
 

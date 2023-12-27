@@ -102,10 +102,8 @@ export const logIn = async () => {
 };
 
 // sign up
-export const signUp = async (profileRequestBody) => {
+export const signUp = async (profileRequestBody, address) => {
 	try {
-		await connectWallet();
-		const address = await getUserAddress();
 		profileRequestBody["address"] = address;
 		// call create function to API with details
 		const endPoint = "createProfile";
@@ -130,7 +128,7 @@ export const signUp = async (profileRequestBody) => {
 };
 
 // function to sign up
-export const signIn = async () => {
+export const signIn = async() => {
 	await connectWallet();
 	const userAddress = await getUserAddress();
 
