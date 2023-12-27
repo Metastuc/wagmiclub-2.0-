@@ -4,6 +4,15 @@ export const DEPLOYMENT_CHAINS = [
 	{
 		id: 0,
 		value: {
+			image: "viction-small.jpg",
+			title: "Viction",
+			utility: "Viction",
+			bgColor: "",
+		},
+	},
+	{
+		id: 1,
+		value: {
 			image: "luksoIcon.png",
 			title: "Lukso",
 			utility: "Lukso",
@@ -11,7 +20,7 @@ export const DEPLOYMENT_CHAINS = [
 		},
 	},
 	{
-		id: 1,
+		id: 2,
 		value: {
 			icon: Sepolia,
 			title: "Eth Sepolia",
@@ -20,7 +29,7 @@ export const DEPLOYMENT_CHAINS = [
 		},
 	},
 	{
-		id: 2,
+		id: 3,
 		value: {
 			image: "polygon.jpg",
 			title: "Polygon Mumbai",
@@ -29,7 +38,7 @@ export const DEPLOYMENT_CHAINS = [
 		},
 	},
 	{
-		id: 3,
+		id: 4,
 		value: {
 			icon: BNB,
 			utility: "BSC Testnet",
