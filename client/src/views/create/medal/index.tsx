@@ -32,7 +32,7 @@ export const Medal = ({ group }: { group: string }) => {
 		validationSchema: MEDAL_SCHEMA,
 		initialValues,
 		onSubmit: async (values) => {
-			console.log("Formik data:", values);
+			// console.log("Formik data:", values);
 			// Handle form submission logic here (e.g., API call)
 			try {
 				await createMedal(values);
@@ -59,7 +59,7 @@ export const Medal = ({ group }: { group: string }) => {
 					setFieldValue={setFieldValue}
 					error={errors.deployChain}
 					touched={touched.deployChain}
-					selectedValue="Polygon Mumbai"
+					selectedValue="Viction"
 				/>
 
 				{/* File Upload component */}
