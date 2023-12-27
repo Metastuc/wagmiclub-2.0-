@@ -405,14 +405,18 @@ export const mintEligible = async (tokenId) => {
 			console.log(eligible);
 		} else {
 			// mint to eligible
-			await connectWallet();
+			const contract = new ethers.Contract(
+				medalContractAddress,
+				medalABI,
+				signer,
+			);
 			const TX = await contract.batchMint(eligible, tokenId);
 			const receipt = await TX.wait();
 			console.log("created", receipt);
 		}
 		console.log(data);
 	} catch (error) {
-		
+		console.log(error);
 	}
 };
 
